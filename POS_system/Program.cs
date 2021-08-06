@@ -30,7 +30,7 @@ namespace POS_system
                     };
                     if (pOS_Terminal.IsThereEnoughMoney())
                     {
-                        OutputToConsoleAassumption(pOS_Terminal.GetAssumption);
+                        OutputToConsoleAassumption(pOS_Terminal.GetAssumption());
                     }
                     else
                     {
@@ -51,11 +51,11 @@ namespace POS_system
         {
             if (!double.TryParse(inputPrice, out price))
             {
-                throw new Exception("Incorret Price");
+                throw new ArgumentException("Incorret Price");
             }
             if (price < 0)
             {
-                throw new Exception("The price cannot be less than 0");
+                throw new ArgumentOutOfRangeException("The price cannot be less than 0");
             }
         }
 
@@ -72,12 +72,12 @@ namespace POS_system
                     }
                     else
                     {
-                        throw new Exception("The bill cannot be less than 0");
+                        throw new ArgumentOutOfRangeException("The bill cannot be less than 0");
                     }
                 }
                 else
                 {
-                    throw new Exception("Incorrect bill");
+                    throw new ArgumentException("Incorrect bill");
                 }
             }
             userBillsAndCoins = billsAndCoins.GroupBy(x => x)

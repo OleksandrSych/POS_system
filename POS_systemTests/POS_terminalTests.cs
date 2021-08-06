@@ -9,38 +9,23 @@ namespace POS_system.Tests
     [TestClass()]
     public class POS_terminalTests
     {
-
         [TestMethod()]
         public void IsThereEnoughMoney_GetExceptionTest()
         {
             DenominationBillsAndCoins billsAndCoins = new DenominationBillsAndCoins();
             billsAndCoins.AddNewDenomination(0.01);
             POS_terminal pOS_Terminal = new POS_terminal(billsAndCoins);
-            try
-            {
-                pOS_Terminal.SetPrice = 0.001;
-                Assert.Fail();
-            }
-            catch (Exception ex)
-            {
-                Assert.IsTrue(ex is Exception);
-            }
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => pOS_Terminal.SetPrice = -0.001);            
         }
+
         [TestMethod()]
         public void IsThereEnoughMoney_PassTest()
         {
             DenominationBillsAndCoins billsAndCoins = new DenominationBillsAndCoins();
             billsAndCoins.AddNewDenomination(0.01);
             POS_terminal pOS_Terminal = new POS_terminal(billsAndCoins);
-            try
-            {
-                pOS_Terminal.SetPrice = 0.1;
-                Assert.Fail();
-            }
-            catch (Exception ex)
-            {
-                Assert.IsTrue(ex is Exception);
-            }
+            pOS_Terminal.SetPrice = 0.1;
+            Assert.IsNotNull(pOS_Terminal); 
         }
 
         [TestMethod()]
@@ -53,6 +38,7 @@ namespace POS_system.Tests
                 { new CurrencyDenomination {Denomination = 11, Count =1 } };
             Assert.IsTrue(pOS_Terminal.IsThereEnoughMoney());
         }
+
         [TestMethod()]
         public void IsThereEnoughMoney_True_Price10Money10Test()
         {
@@ -63,6 +49,7 @@ namespace POS_system.Tests
                 { new CurrencyDenomination {Denomination = 10, Count =1 } };
             Assert.IsTrue(pOS_Terminal.IsThereEnoughMoney());
         }
+
         [TestMethod()]
         public void IsThereEnoughMoney_False_Price10Money9Test()
         {
@@ -85,7 +72,7 @@ namespace POS_system.Tests
                 SetBillsAndCoins = new List<CurrencyDenomination>
                 { new CurrencyDenomination {Denomination = 10, Count =1 } }
             };
-            Assert.AreEqual(pOS_Terminal.GetAssumption.Count, 0);
+            Assert.AreEqual(pOS_Terminal.GetAssumption().Count, 0);
         }
 
         [TestMethod()]
@@ -99,8 +86,9 @@ namespace POS_system.Tests
                 SetBillsAndCoins = new List<CurrencyDenomination>
                 { new CurrencyDenomination {Denomination = 11, Count =1 } }
             };
-            Assert.AreEqual(pOS_Terminal.GetAssumption.Count, 1);
+            Assert.AreEqual(pOS_Terminal.GetAssumption().Count, 1);
         }
+
         [TestMethod()]
         public void GetAssumption_AssumptionBillsCount10Test()
         {
@@ -112,7 +100,7 @@ namespace POS_system.Tests
                 SetBillsAndCoins = new List<CurrencyDenomination>
                 { new CurrencyDenomination {Denomination = 11, Count =1 } }
             };
-            Assert.AreEqual(pOS_Terminal.GetAssumption[0].Count, 10);
+            Assert.AreEqual(pOS_Terminal.GetAssumption()[0].Count, 10);
         }
 
         [TestMethod()]
@@ -126,15 +114,8 @@ namespace POS_system.Tests
                 SetBillsAndCoins = new List<CurrencyDenomination>
                 { new CurrencyDenomination {Denomination = 5, Count =1 } }
             };
-            try
-            {
-                var assumption = pOS_Terminal.GetAssumption;
-                Assert.Fail();
-            }
-            catch (Exception ex)
-            {
-                Assert.IsTrue(ex is Exception);
-            }
+            Assert.ThrowsException<ArgumentException>(() => pOS_Terminal.GetAssumption());
+
         }
     }
 }

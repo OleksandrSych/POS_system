@@ -30,7 +30,7 @@ namespace POS_system
                 }
                 else
                 {
-                    throw new Exception("Incorrect denomination. Denomination must be more than 0.");
+                    throw new ArgumentOutOfRangeException("Incorrect denomination. Denomination must be more than 0.");
                 }
             }
         }
