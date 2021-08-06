@@ -42,7 +42,7 @@ namespace POS_system
                     Console.WriteLine(exception.Message);
                 }
                 Console.WriteLine("Please, press any key to start again!");
-                Console.ReadLine();
+                Console.ReadKey();
                 Console.Clear();
             }
         }
@@ -86,9 +86,10 @@ namespace POS_system
         }
         private static void OutputToConsole(IEnumerable<CurrencyDenomination> assumptions)
         {
+            Console.WriteLine("\nNumber of bills and coins to return to the customer:");
             foreach (var assumption in assumptions)
             {
-                Console.WriteLine($"{assumption.Denomination} - {assumption.Count}");
+                Console.WriteLine(assumption);
             }
         }
     }
