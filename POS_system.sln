@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POS_system", "POS_system\POS_system.csproj", "{47A1E97A-56F8-408D-A60C-0C270779906A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POS_systemTests", "POS_systemTests\POS_systemTests.csproj", "{5FFECD28-CD30-4981-B165-C4B87CC78702}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{47A1E97A-56F8-408D-A60C-0C270779906A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47A1E97A-56F8-408D-A60C-0C270779906A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47A1E97A-56F8-408D-A60C-0C270779906A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47A1E97A-56F8-408D-A60C-0C270779906A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FFECD28-CD30-4981-B165-C4B87CC78702}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FFECD28-CD30-4981-B165-C4B87CC78702}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FFECD28-CD30-4981-B165-C4B87CC78702}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FFECD28-CD30-4981-B165-C4B87CC78702}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {17E60964-9D8F-468E-841D-FAA0B17D24FB}
+	EndGlobalSection
+EndGlobal
