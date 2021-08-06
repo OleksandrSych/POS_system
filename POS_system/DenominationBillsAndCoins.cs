@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Linq;
 
 namespace POS_system
 {
@@ -10,7 +8,6 @@ namespace POS_system
     /// </summary>
     public class DenominationBillsAndCoins
     {
-        List<double> denominations = new List<double>();
         public DenominationBillsAndCoins(params double[] denominations)
         {
             AddDenominations(denominations);
@@ -26,21 +23,15 @@ namespace POS_system
             {
                 if (bill > 0)
                 {
-                    this.denominations.Add(bill);
+                    this.GetDenominations.Add(bill);
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException("Incorrect denomination. Denomination must be more than 0.");
+                    throw new ArgumentOutOfRangeException($"Incorrect denomination. Denomination '{bill}' must be more than 0.");
                 }
             }
         }
 
-        public List<double> GetDenominations
-        {
-            get
-            {
-                return denominations;
-            }
-        }
+        public List<double> GetDenominations { get; } = new List<double>();
     }
 }

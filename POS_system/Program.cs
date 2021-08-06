@@ -4,13 +4,13 @@ using System.Linq;
 
 namespace POS_system
 {
-    class Program
+    internal class Program
     {
-        static readonly DenominationBillsAndCoins billsAndCoins;
+        private static readonly DenominationBillsAndCoins BillsAndCoins;
         static Program()
         {
-            billsAndCoins = new DenominationBillsAndCoins();
-            billsAndCoins.AddNewDenomination(0.01, 0.05, 0.10, 0.25, 0.50, 1.00, 2.00, 5.00, 10.00, 20.00, 50.00, 100.00);
+            BillsAndCoins = new DenominationBillsAndCoins();
+            BillsAndCoins.AddNewDenomination(0.01, 0.05, 0.10, 0.25, 0.50, 1.00, 2.00, 5.00, 10.00, 20.00, 50.00, 100.00);
         }
         static void Main(string[] args)
         {
@@ -19,18 +19,18 @@ namespace POS_system
                 try
                 {
                     Console.Write("Price: ");
-                    ValidatePrice(Console.ReadLine(), out double price);
+                    ValidatePrice(Console.ReadLine(), out var price);
                     Console.Write("Bills And Coins: ");
-                    ValidateUserBillsAndCoins(Console.ReadLine(), out List<CurrencyDenomination> userBillsAndCoins);
+                    ValidateUserBillsAndCoins(Console.ReadLine(), out var userBillsAndCoins);
 
-                    POS_terminal pOS_Terminal = new POS_terminal(billsAndCoins)
+                    var posTerminal = new PosTerminal(BillsAndCoins)
                     {
                         SetPrice = price,
                         SetBillsAndCoins = userBillsAndCoins
                     };
-                    if (pOS_Terminal.IsThereEnoughMoney())
+                    if (posTerminal.IsThereEnoughMoney())
                     {
-                        OutputToConsoleAassumption(pOS_Terminal.GetAssumption());
+                        OutputToConsole(posTerminal.GetAssumption());
                     }
                     else
                     {
@@ -51,11 +51,11 @@ namespace POS_system
         {
             if (!double.TryParse(inputPrice, out price))
             {
-                throw new ArgumentException("Incorret Price");
+                throw new ArgumentOutOfRangeException($"The price '{price}' is not number");
             }
             if (price < 0)
             {
-                throw new ArgumentOutOfRangeException("The price cannot be less than 0");
+                throw new ArgumentOutOfRangeException($"The price '{price}' cannot be less than 0");
             }
         }
 
@@ -64,7 +64,7 @@ namespace POS_system
             var billsAndCoins = new List<double>();
             foreach (var bill in inputPrice.Split(","))
             {
-                if (double.TryParse(bill, out double userBill))
+                if (double.TryParse(bill, out var userBill))
                 {
                     if (userBill > 0)
                     {
@@ -72,7 +72,7 @@ namespace POS_system
                     }
                     else
                     {
-                        throw new ArgumentOutOfRangeException("The bill cannot be less than 0");
+                        throw new ArgumentOutOfRangeException($"The bill '{userBill}' cannot be less than 0");
                     }
                 }
                 else
@@ -84,7 +84,7 @@ namespace POS_system
                     .Select(x => new CurrencyDenomination { Denomination = x.Key, Count = x.Count() })
                     .ToList();
         }
-        private static void OutputToConsoleAassumption(List<CurrencyDenomination> assumptions)
+        private static void OutputToConsole(IEnumerable<CurrencyDenomination> assumptions)
         {
             foreach (var assumption in assumptions)
             {

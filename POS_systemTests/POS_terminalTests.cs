@@ -1,120 +1,130 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using POS_system;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using POS_system;
 
-namespace POS_system.Tests
+namespace POS_systemTests
 {
     [TestClass()]
-    public class POS_terminalTests
+    public class PosTerminalTests
     {
         [TestMethod()]
         public void IsThereEnoughMoney_GetExceptionTest()
         {
-            DenominationBillsAndCoins billsAndCoins = new DenominationBillsAndCoins();
+            var billsAndCoins = new DenominationBillsAndCoins();
             billsAndCoins.AddNewDenomination(0.01);
-            POS_terminal pOS_Terminal = new POS_terminal(billsAndCoins);
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => pOS_Terminal.SetPrice = -0.001);            
+            var posTerminal = new PosTerminal(billsAndCoins);
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => posTerminal.SetPrice = -0.001);
         }
 
         [TestMethod()]
         public void IsThereEnoughMoney_PassTest()
         {
-            DenominationBillsAndCoins billsAndCoins = new DenominationBillsAndCoins();
+            var billsAndCoins = new DenominationBillsAndCoins();
             billsAndCoins.AddNewDenomination(0.01);
-            POS_terminal pOS_Terminal = new POS_terminal(billsAndCoins);
-            pOS_Terminal.SetPrice = 0.1;
-            Assert.IsNotNull(pOS_Terminal); 
+            var posTerminal = new PosTerminal(billsAndCoins) { SetPrice = 0.1 };
+            Assert.IsNotNull(posTerminal);
         }
 
         [TestMethod()]
         public void IsThereEnoughMoney_True_Price10Money11Test()
         {
-            DenominationBillsAndCoins billsAndCoins = new DenominationBillsAndCoins();
-            POS_terminal pOS_Terminal = new POS_terminal(billsAndCoins);
-            pOS_Terminal.SetPrice = 10;
-            pOS_Terminal.SetBillsAndCoins = new List<CurrencyDenomination>
-                { new CurrencyDenomination {Denomination = 11, Count =1 } };
-            Assert.IsTrue(pOS_Terminal.IsThereEnoughMoney());
+            var billsAndCoins = new DenominationBillsAndCoins();
+            var posTerminal = new PosTerminal(billsAndCoins)
+            {
+                SetPrice = 10,
+                SetBillsAndCoins = new List<CurrencyDenomination>
+                {
+                    new CurrencyDenomination {Denomination = 11, Count = 1}
+                }
+            };
+            Assert.IsTrue(posTerminal.IsThereEnoughMoney());
         }
 
         [TestMethod()]
         public void IsThereEnoughMoney_True_Price10Money10Test()
         {
-            DenominationBillsAndCoins billsAndCoins = new DenominationBillsAndCoins();
-            POS_terminal pOS_Terminal = new POS_terminal(billsAndCoins);
-            pOS_Terminal.SetPrice = 10;
-            pOS_Terminal.SetBillsAndCoins = new List<CurrencyDenomination>
-                { new CurrencyDenomination {Denomination = 10, Count =1 } };
-            Assert.IsTrue(pOS_Terminal.IsThereEnoughMoney());
+            var billsAndCoins = new DenominationBillsAndCoins();
+            var posTerminal = new PosTerminal(billsAndCoins)
+            {
+                SetPrice = 10,
+                SetBillsAndCoins = new List<CurrencyDenomination>
+                {
+                    new CurrencyDenomination {Denomination = 10, Count = 1}
+                }
+            };
+            Assert.IsTrue(posTerminal.IsThereEnoughMoney());
         }
 
         [TestMethod()]
         public void IsThereEnoughMoney_False_Price10Money9Test()
         {
-            DenominationBillsAndCoins billsAndCoins = new DenominationBillsAndCoins();
-            POS_terminal pOS_Terminal = new POS_terminal(billsAndCoins);
-            pOS_Terminal.SetPrice = 10;
-            pOS_Terminal.SetBillsAndCoins = new List<CurrencyDenomination>
-                { new CurrencyDenomination {Denomination = 9, Count =1 } };
-            Assert.IsFalse(pOS_Terminal.IsThereEnoughMoney());
+            var billsAndCoins = new DenominationBillsAndCoins();
+            var posTerminal = new PosTerminal(billsAndCoins)
+            {
+                SetPrice = 10,
+                SetBillsAndCoins = new List<CurrencyDenomination>
+                {
+                    new CurrencyDenomination {Denomination = 9, Count = 1}
+                }
+            };
+            Assert.IsFalse(posTerminal.IsThereEnoughMoney());
         }
 
         [TestMethod()]
         public void GetAssumption_AssumptionBillsCount0Test()
         {
-            DenominationBillsAndCoins billsAndCoins = new DenominationBillsAndCoins();
+            var billsAndCoins = new DenominationBillsAndCoins();
             billsAndCoins.AddNewDenomination(0.01);
-            POS_terminal pOS_Terminal = new POS_terminal(billsAndCoins)
+            var posTerminal = new PosTerminal(billsAndCoins)
             {
                 SetPrice = 10,
                 SetBillsAndCoins = new List<CurrencyDenomination>
                 { new CurrencyDenomination {Denomination = 10, Count =1 } }
             };
-            Assert.AreEqual(pOS_Terminal.GetAssumption().Count, 0);
+            Assert.AreEqual(posTerminal.GetAssumption().Count, 0);
         }
 
         [TestMethod()]
         public void GetAssumption_AssumptionCount1Test()
         {
-            DenominationBillsAndCoins billsAndCoins = new DenominationBillsAndCoins();
+            var billsAndCoins = new DenominationBillsAndCoins();
             billsAndCoins.AddNewDenomination(1);
-            POS_terminal pOS_Terminal = new POS_terminal(billsAndCoins)
+            var posTerminal = new PosTerminal(billsAndCoins)
             {
                 SetPrice = 1,
                 SetBillsAndCoins = new List<CurrencyDenomination>
                 { new CurrencyDenomination {Denomination = 11, Count =1 } }
             };
-            Assert.AreEqual(pOS_Terminal.GetAssumption().Count, 1);
+            Assert.AreEqual(posTerminal.GetAssumption().Count, 1);
         }
 
         [TestMethod()]
         public void GetAssumption_AssumptionBillsCount10Test()
         {
-            DenominationBillsAndCoins billsAndCoins = new DenominationBillsAndCoins();
+            var billsAndCoins = new DenominationBillsAndCoins();
             billsAndCoins.AddNewDenomination(1);
-            POS_terminal pOS_Terminal = new POS_terminal(billsAndCoins)
+            var posTerminal = new PosTerminal(billsAndCoins)
             {
                 SetPrice = 1,
                 SetBillsAndCoins = new List<CurrencyDenomination>
                 { new CurrencyDenomination {Denomination = 11, Count =1 } }
             };
-            Assert.AreEqual(pOS_Terminal.GetAssumption()[0].Count, 10);
+            Assert.AreEqual(posTerminal.GetAssumption()[0].Count, 10);
         }
 
         [TestMethod()]
         public void GetAssumption_GetExceptionTest()
         {
-            DenominationBillsAndCoins billsAndCoins = new DenominationBillsAndCoins();
+            var billsAndCoins = new DenominationBillsAndCoins();
             billsAndCoins.AddNewDenomination(10);
-            POS_terminal pOS_Terminal = new POS_terminal(billsAndCoins)
+            var posTerminal = new PosTerminal(billsAndCoins)
             {
                 SetPrice = 1,
                 SetBillsAndCoins = new List<CurrencyDenomination>
                 { new CurrencyDenomination {Denomination = 5, Count =1 } }
             };
-            Assert.ThrowsException<ArgumentException>(() => pOS_Terminal.GetAssumption());
+            Assert.ThrowsException<ArgumentException>(() => posTerminal.GetAssumption());
 
         }
     }
