@@ -98,19 +98,19 @@ namespace POS_systemTests
             };
             Assert.AreEqual(posTerminal.GetAssumption().Count, 1);
         }
-
+ 
         [TestMethod()]
-        public void GetAssumption_AssumptionBillsCount10Test()
+        public void GetAssumption_AssumptionBillsCount1Test()
         {
             var billsAndCoins = new DenominationBillsAndCoins();
-            billsAndCoins.AddNewDenomination(1);
+            billsAndCoins.AddNewDenomination(1, 3, 8);
             var posTerminal = new PosTerminal(billsAndCoins)
             {
                 SetPrice = 1,
                 SetBillsAndCoins = new List<CurrencyDenomination>
                 { new CurrencyDenomination {Denomination = 11, Count =1 } }
             };
-            Assert.AreEqual(posTerminal.GetAssumption()[0].Count, 10);
+            Assert.AreEqual(1,posTerminal.GetAssumption()[0].Count );
         }
 
         [TestMethod()]
@@ -125,6 +125,30 @@ namespace POS_systemTests
                 { new CurrencyDenomination {Denomination = 5, Count =1 } }
             };
             Assert.ThrowsException<ArgumentException>(() => posTerminal.GetAssumption());
+
+        }
+        [TestMethod()]
+        public void SetBillsAndCoins_Denomination_minus5_GetExceptionTest()
+        {
+            var billsAndCoins = new DenominationBillsAndCoins();
+            billsAndCoins.AddNewDenomination(10); 
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => new PosTerminal(billsAndCoins)
+            { 
+                SetBillsAndCoins = new List<CurrencyDenomination>
+                    { new CurrencyDenomination {Denomination = -5, Count =1 } }
+            });
+        }
+
+        [TestMethod()]
+        public void SetBillsAndCoins_Count_0_GetExceptionTest()
+        {
+            var billsAndCoins = new DenominationBillsAndCoins();
+            billsAndCoins.AddNewDenomination(10);
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => new PosTerminal(billsAndCoins)
+            {
+                SetBillsAndCoins = new List<CurrencyDenomination>
+                    { new CurrencyDenomination {Denomination = 5, Count = 0 } }
+            });
 
         }
     }

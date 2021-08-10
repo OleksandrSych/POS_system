@@ -53,12 +53,12 @@ namespace POS_system
                 .OrderByDescending(x => x);
             foreach (var bill in denominationBillsAndCoins)
             {
+                if (!(assumptionMoney >= bill)) continue;
+                var countBills = (int)Math.Floor(assumptionMoney / bill);
+                assumption.Add(new CurrencyDenomination { Denomination = bill, Count = countBills });
+                assumptionMoney = Math.Round(assumptionMoney - countBills * bill, 5);
                 if (assumptionMoney == 0)
                     break;
-                if (!(assumptionMoney >= bill)) continue;
-                var countBills = (int) Math.Floor(assumptionMoney / bill);
-                assumption.Add(new CurrencyDenomination {Denomination = bill, Count = countBills});
-                assumptionMoney = Math.Round(assumptionMoney - countBills * bill, 5);
             }
 
             if (assumptionMoney == 0)

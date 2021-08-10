@@ -6,7 +6,7 @@ using System.Resources;
 
 namespace POS_system
 {
-    internal class Program
+    public class Program
     {
         private static readonly DenominationBillsAndCoins BillsAndCoins;
         static Program()
@@ -54,7 +54,7 @@ namespace POS_system
             }
         }
 
-        static void ValidatePrice(string inputPrice, out double price)
+        public static void ValidatePrice(string inputPrice, out double price)
         {
             if (!double.TryParse(inputPrice, out price))
             {
@@ -66,7 +66,7 @@ namespace POS_system
             }
         }
 
-        static void ValidateUserBillsAndCoins(string inputPrice, out List<CurrencyDenomination> userBillsAndCoins)
+        public static void ValidateUserBillsAndCoins(string inputPrice, out List<CurrencyDenomination> userBillsAndCoins)
         {
             var billsAndCoins = new List<double>();
             foreach (var bill in inputPrice.Split(","))
@@ -91,7 +91,7 @@ namespace POS_system
                     .Select(x => new CurrencyDenomination { Denomination = x.Key, Count = x.Count() })
                     .ToList();
         }
-        private static void OutputToConsole(IEnumerable<CurrencyDenomination> assumptions)
+        public static void OutputToConsole(IEnumerable<CurrencyDenomination> assumptions)
         {
             Console.WriteLine("\nNumber of bills and coins to return to the customer:");
             foreach (var assumption in assumptions)
