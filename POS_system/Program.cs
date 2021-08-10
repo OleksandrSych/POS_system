@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 
 namespace POS_system
 {
@@ -10,7 +12,12 @@ namespace POS_system
         static Program()
         {
             BillsAndCoins = new DenominationBillsAndCoins();
-            BillsAndCoins.AddNewDenomination(0.01, 0.05, 0.10, 0.25, 0.50, 1.00, 2.00, 5.00, 10.00, 20.00, 50.00, 100.00);
+            BillsAndCoins.AddNewDenomination(
+                Properties.Resources.DenominationRes
+                     .Split(", ")
+                     .Select(double.Parse)
+                     .ToArray()
+                );
         }
         static void Main(string[] args)
         {
